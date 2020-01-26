@@ -14,7 +14,6 @@ async function pull_by_pageid(pageid) {
         .withCredentials()
         .buffer(true)
         .end((err, res) => {
-        console.log(res.body);
         return res.body.query.allrevisions;
     });
 }

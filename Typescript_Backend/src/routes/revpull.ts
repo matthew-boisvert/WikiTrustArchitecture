@@ -13,7 +13,6 @@ export async function pull_by_pageid(pageid: number) {
     .withCredentials()
     .buffer(true)
     .end((err, res) => {
-      console.log(res.body);
       return res.body.query.allrevisions;
     });
 }
