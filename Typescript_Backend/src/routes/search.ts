@@ -42,5 +42,9 @@ export async function search_by_page(pagename: string) {
     .buffer(true)
     .then(async res => {
       console.log(res.body.query.search);
+      const revisions = await revpuller.pull_by_pageid(
+        res.body.query.search[0].pageid
+      );
+      //console.log(revisions);
     });
 }

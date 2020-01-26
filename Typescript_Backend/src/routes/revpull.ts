@@ -6,13 +6,15 @@ export async function pull_by_pageid(pageid: number) {
     .query({
       action: 'query',
       format: 'json',
-      list: 'allrevisions',
+      prop: 'revisions',
       pageids: pageid,
+      rvprop: 'ids|timestamp|flags|comment|user|userid',
+      rvlimit: 10,
     })
-    .query('arvprop=ids%7Ccomment%7Cuserid%7Cflags')
     .withCredentials()
     .buffer(true)
     .end((err, res) => {
-      return res.body.query.allrevisions;
+      console.log(res.body.query.pages[pageid]);
+      return res.body.query;
     });
 }
