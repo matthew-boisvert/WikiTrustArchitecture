@@ -1,17 +1,19 @@
-import * as fs from 'fs';
-import * as htmlparser2 from 'htmlparser2';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
+const htmlparser2 = require("htmlparser2");
 let HTMLFile = './test_files/obama.html';
 fs.readFile(HTMLFile, 'utf8', (err, contents) => {
     let fileString = "";
     let parser = new htmlparser2.Parser({
-        onopentag (name, attribs) {
+        onopentag(name, attribs) {
             if (name === "p") {
             }
         },
-        ontext (text:string) {
+        ontext(text) {
             fileString += text;
         },
-        onclosetag (tagname:string) {
+        onclosetag(tagname) {
         }
     }, { decodeEntities: true });
     parser.write(contents);
@@ -23,3 +25,4 @@ fs.readFile(HTMLFile, 'utf8', (err, contents) => {
         }
     });
 });
+//# sourceMappingURL=htmlparser.js.map
