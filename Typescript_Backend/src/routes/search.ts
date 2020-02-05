@@ -1,5 +1,6 @@
 import * as revpuller from './revpull';
 import * as puller from 'superagent';
+import * as block from './blockmanager';
 //import * as blockmanager from './blockmanager';
 
 export async function search_by_category(pagename: string) {
@@ -41,10 +42,10 @@ export async function search_by_page(pagename: string) {
     .withCredentials()
     .buffer(true)
     .then(async res => {
-      console.log(res.body.query.search);
       const revisions = await revpuller.pull_by_pageid(
         res.body.query.search[0].pageid
       );
-      //console.log(revisions);
+      console.log('revisions');
+      console.log(revisions);
     });
 }

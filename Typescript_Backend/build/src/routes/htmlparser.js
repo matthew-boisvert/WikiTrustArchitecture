@@ -1,28 +1,49 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = require("fs");
 const htmlparser2 = require("htmlparser2");
-let HTMLFile = './test_files/obama.html';
-fs.readFile(HTMLFile, 'utf8', (err, contents) => {
-    let fileString = "";
-    let parser = new htmlparser2.Parser({
+/*
+const htmlFile = './test_files/obama.html';
+fs.readFile(htmlFile, 'utf8', (err, contents) => {
+  let fileString = '';
+  const parser = new htmlparser2.Parser(
+    {
+      onopentag(name, attribs) {
+        if (name === 'p') {
+        }
+      },
+      ontext(text: string) {
+        fileString += text;
+      },
+      onclosetag(tagname: string) {},
+    },
+    { decodeEntities: true }
+  );
+  parser.write(contents);
+  parser.end();
+  fileString = fileString.replace(/\\./g, '');
+  fs.writeFile('./test_files/Output.txt', fileString, err => {
+    if (err) {
+      throw err;
+    }
+  });
+});
+*/
+function parseText(text) {
+    let newText = '';
+    const parser = new htmlparser2.Parser({
         onopentag(name, attribs) {
-            if (name === "p") {
+            if (name === 'p') {
             }
         },
         ontext(text) {
-            fileString += text;
+            newText += text;
         },
-        onclosetag(tagname) {
-        }
+        onclosetag(tagname) { },
     }, { decodeEntities: true });
-    parser.write(contents);
+    parser.write(text);
     parser.end();
-    fileString = fileString.replace(/\\./g, "");
-    fs.writeFile('./test_files/Output.txt', fileString, (err) => {
-        if (err) {
-            throw err;
-        }
-    });
-});
+    newText = newText.replace(/\\./g, '');
+    return newText;
+}
+exports.parseText = parseText;
 //# sourceMappingURL=htmlparser.js.map
