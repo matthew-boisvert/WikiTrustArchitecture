@@ -14,7 +14,7 @@ async function pull_by_pageid(pageid) {
             prop: 'revisions',
             pageids: pageid,
             rvprop: 'ids|timestamp|flags|comment|user|userid',
-            rvlimit: 500,
+            rvlimit: 5,
         })
             .withCredentials()
             .buffer(true)
@@ -22,14 +22,15 @@ async function pull_by_pageid(pageid) {
             let revs;
             revs = [];
             for (const rev of res.body.query.pages[pageid].revisions) {
-                console.log(rev);
                 const temp = await pull_by_revisionid(rev.revid);
-                if (temp === '') {
+                if (temp !== '') {
                     revs.push(new block.Revision(temp, rev.revid, rev.userid));
                 }
                 console.log('completed rev: ' + rev.revid);
             }
-            resolve(revs);
+            console.log(revs);
+            block.blockmanager(revs, pageid);
+            //resolve(revs);
         });
     });
 }

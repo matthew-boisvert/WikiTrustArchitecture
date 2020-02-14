@@ -18,7 +18,5 @@ export async function search_by_page(pagename: string) {
       const revisions = await revpuller.pull_by_pageid(
         res.body.query.search[0].pageid
       );
-      //console.log('revisions');
-      //console.log(revisions);
     });
 }

@@ -17,8 +17,6 @@ async function search_by_page(pagename) {
         .buffer(true)
         .then(async (res) => {
         const revisions = await revpuller.pull_by_pageid(res.body.query.search[0].pageid);
-        //console.log('revisions');
-        //console.log(revisions);
     });
 }
 exports.search_by_page = search_by_page;
