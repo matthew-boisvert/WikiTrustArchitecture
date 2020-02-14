@@ -2,6 +2,7 @@ import * as puller from 'superagent';
 import * as block from './blockmanager';
 import * as parse from './htmlparser';
 
+//pulls 500 revisions from the page
 export async function pull_by_pageid(pageid: number) {
   return new Promise((resolve, reject) => {
     puller
@@ -17,16 +18,16 @@ export async function pull_by_pageid(pageid: number) {
       .withCredentials()
       .buffer(true)
       .end(async (err, res) => {
-        //console.log(res.body.query.pages[pageid]);
         let revs: block.Revision[];
         revs = [];
         for (const rev of res.body.query.pages[pageid].revisions) {
+          console.log(rev);
           const temp = await pull_by_revisionid(rev.revid);
-          revs.push(new block.Revision(temp, rev.revid));
-          //console.log(rev);
+          if (temp === '') {
+            revs.push(new block.Revision(temp, rev.revid, rev.userid));
+          }
           console.log('completed rev: ' + rev.revid);
         }
-        //pull_by_revisionid(res.body.query.pages[pageid].revisions[0].revid);
         resolve(revs);
       });
   });
@@ -48,10 +49,14 @@ export async function pull_by_revisionid(revid: number) {
       .buffer(true)
       .then(res => {
         console.log('It work: ' + revid);
-        //console.log(res.body.parse.text['*']);
-        const txt = parse.parseText(res.body.parse.text['*']);
-        resolve(txt);
-        //return res.body.parse;
+        if (res.body.error) {
+          resolve('');
+        } else {
+          //console.log(res.body);
+          const txt = parse.parseText(res.body.parse.text['*']);
+          resolve(txt);
+          //return res.body.parse;
+        }
       })
       .catch(err => {
         console.log('It no work: ' + revid);

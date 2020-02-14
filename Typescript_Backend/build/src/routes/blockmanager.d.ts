@@ -1,4 +1,4 @@
-export declare function blockmanager(): Promise<void>;
+export declare function blockmanager(revs: Revision[], pageId: number): Promise<void>;
 export declare class Block {
     pageId: number;
     revisions: Revision[];
@@ -8,5 +8,6 @@ export declare class Block {
 export declare class Revision {
     text: string;
     revisionId: number;
-    constructor(text: string, revid: number);
+    userId: string;
+    constructor(text: string, revid: number, userid: string);
 }

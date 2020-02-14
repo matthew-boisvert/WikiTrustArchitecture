@@ -1,4 +1,6 @@
-export async function blockmanager() {}
+export async function blockmanager(revs: Revision[], pageId: number) {
+  const bl = new Block(pageId, revs, revs.length);
+}
 
 export class Block {
   pageId: number;
@@ -15,9 +17,11 @@ export class Block {
 export class Revision {
   text: string;
   revisionId: number;
+  userId: string;
 
-  constructor(text: string, revid: number) {
+  constructor(text: string, revid: number, userid: string) {
     this.text = text;
     this.revisionId = revid;
+    this.userId = userid;
   }
 }
