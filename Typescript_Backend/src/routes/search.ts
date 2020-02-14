@@ -15,8 +15,12 @@ export async function search_by_page(pagename: string) {
     .withCredentials()
     .buffer(true)
     .then(async res => {
-      const revisions = await revpuller.pull_by_pageid(
-        res.body.query.search[0].pageid
-      );
+      if (res.body.error) {
+        console.log(res.body.error);
+      } else {
+        const revisions = await revpuller.pull_by_pageid(
+          res.body.query.search[0].pageid
+        );
+      }
     });
 }

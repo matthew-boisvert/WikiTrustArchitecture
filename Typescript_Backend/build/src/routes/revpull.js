@@ -28,9 +28,8 @@ async function pull_by_pageid(pageid) {
                 }
                 console.log('completed rev: ' + rev.revid);
             }
-            console.log(revs);
             block.blockmanager(revs, pageid);
-            //resolve(revs);
+            resolve(revs);
         });
     });
 }

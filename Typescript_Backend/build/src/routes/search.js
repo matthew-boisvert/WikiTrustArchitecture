@@ -16,7 +16,12 @@ async function search_by_page(pagename) {
         .withCredentials()
         .buffer(true)
         .then(async (res) => {
-        const revisions = await revpuller.pull_by_pageid(res.body.query.search[0].pageid);
+        if (res.body.error) {
+            console.log(res.body.error);
+        }
+        else {
+            const revisions = await revpuller.pull_by_pageid(res.body.query.search[0].pageid);
+        }
     });
 }
 exports.search_by_page = search_by_page;
