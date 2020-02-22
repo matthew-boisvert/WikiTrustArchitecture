@@ -34,6 +34,7 @@ function parseText(text) {
         onopentag(name, attribs) {
             if (name === 'p') {
             }
+            newText += " ";
         },
         ontext(text) {
             newText += text;
