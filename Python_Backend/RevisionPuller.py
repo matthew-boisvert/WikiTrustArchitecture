@@ -1,5 +1,5 @@
 import pywikibot
-import wikiCrawler.library.SearchEngine as SE
+import SearchEngine as SE
 
 def get_latest_revisions(page:pywikibot.page.Page, recent_to_oldest=True, num_revisions=None, start_time=None, end_time=None):
     """
@@ -30,12 +30,3 @@ def getRevisionMetadata(revision:pywikibot.page.Revision, key:str):
     :return: The desired metadata as a string
     """
     return revision[key]
-
-
-"""
-Test Code:
-engine = SE.SearchEngine();
-dogPage = engine.search("Dog", max_pages_grabbed=1, search_by="nearmatch")[0]
-lastRev = get_latest_revisions(page=dogPage, recent_to_oldest=True, num_revisions=1)[0]
-print(getRevisionMetadata(lastRev, "revid"))
-"""

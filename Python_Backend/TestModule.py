@@ -20,10 +20,12 @@ lastRevId = RP.getRevisionMetadata(lastRev, "revid")
 # To get the wikiText of an older revision, do "get_text_of_old_revision(page, revid)"
 lastRevisionWikiText = RP.get_text_of_old_revision(dogPage, lastRevId)
 
-# To parse the WikiText in a simple way use "naiveStrip(WikiText)"
+# To parse the WikiText in a simple way use "getReadableText(WikiText)"
 lastRevisionReadable = processor.getReadableText(lastRevisionWikiText)
 
 
 # To get the WikiText of the most recent revision do "[page object].text"
 currentRevisionWikiText = dogPage.text
 currentRevisionReadable = processor.getReadableText(currentRevisionWikiText)
+
+print(currentRevisionReadable)

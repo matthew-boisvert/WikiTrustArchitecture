@@ -1,6 +1,6 @@
 import pywikibot, mwparserfromhell
-import wikiCrawler.library.RevisionPuller as RP
-import wikiCrawler.library.SearchEngine as SE
+import RevisionPuller as RP
+import SearchEngine as SE
 
 class PageProcessor:
 
@@ -38,6 +38,10 @@ class PageProcessor:
         """
         return wikiCode.strip_code()
 
+    def getReadableText(self, wikiText:str):
+        wikiCode = mwparserfromhell.parse(wikiText)
+        return self.naiveStrip(wikiCode)
+
     def getLeadSection(self, page:pywikibot.page.Page):
         raise NotImplementedError
 
@@ -46,14 +50,3 @@ class PageProcessor:
 
     def getCategories(self, page:pywikibot.page.Page):
         raise NotImplementedError
-
-
-
-engine = SE.SearchEngine();
-processor = PageProcessor()
-
-dogPage = engine.search("Dog", max_pages_grabbed=1, search_by="nearmatch")[0]
-
-wikiCode = mwparserfromhell.parse(dogPage.text)
-print(processor.naiveStrip(wikiCode))
-print(wikiCode.filter("Heading"))
