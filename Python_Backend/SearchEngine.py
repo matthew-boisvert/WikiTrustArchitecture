@@ -14,6 +14,7 @@ class SearchEngine:
         self.source = pywikibot.Site(lang, site)
 
 
+    # To get a single page, do search("searchterm", 1, 'nearmatch')
     def search(self, keyterm:str, max_pages_grabbed=-1, search_by='title'):
         """
         Searches a site for pages based on a given keyterm

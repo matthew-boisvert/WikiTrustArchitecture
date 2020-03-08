@@ -39,6 +39,12 @@ class PageProcessor:
         return wikiCode.strip_code()
 
     def getReadableText(self, wikiText:str):
+        """ Performs a naiveStrip on a string of wikiText and then passes the text through mwparserfromhell
+        to be returned
+
+        :param wikiText: A string containing WikiText
+        :return: A string of the parsed text
+        """
         wikiCode = mwparserfromhell.parse(wikiText)
         return self.naiveStrip(wikiCode)
 
