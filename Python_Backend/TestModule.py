@@ -1,6 +1,7 @@
 import SearchEngine as SE
 import RevisionPuller as RP
 import PageProcessor as PP
+from pywikibot import Timestamp
 
 # Initialization of search engine and revision puller
 engine = SE.SearchEngine()
@@ -28,4 +29,6 @@ lastRevisionReadable = processor.getReadableText(lastRevisionWikiText)
 currentRevisionWikiText = dogPage.text
 currentRevisionReadable = processor.getReadableText(currentRevisionWikiText)
 
-print(currentRevisionReadable)
+# To get the revisions between two revisions use get_revisions_between()
+firstRev = RP.get_latest_revisions(dogPage, recent_to_oldest=False, num_revisions=1)[0]
+rev_list = RP.get_revisions_between(dogPage, revision1=firstRev, revision2=lastRev, recent_to_oldest=False)

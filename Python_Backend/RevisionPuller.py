@@ -29,17 +29,12 @@ def get_revisions_between(page:pywikibot.page.Page, revision1:pywikibot.page.Rev
     """
     firstRevTime = getRevisionMetadata(revision1, "timestamp")
     secondRevTime = getRevisionMetadata(revision2, "timestamp")
-    print(firstRevTime)
-    print(secondRevTime)
     if(recent_to_oldest and firstRevTime <= secondRevTime):
         raise ValueError("Second revision must occur before first revision if sorting by recent to oldest")
     elif(not recent_to_oldest and firstRevTime >= secondRevTime):
         raise ValueError("First revision must occur before second revision if sorting by oldest to recent")
     return get_latest_revisions(page, recent_to_oldest, start_time=firstRevTime, end_time=secondRevTime)
 
-def get_revision(page:pywikibot.page.Page, rev_id:int):
-    # TO DO
-    raise NotImplementedError()
 
 def get_text_of_old_revision(page:pywikibot.page.Page, rev_id:int):
     """
@@ -49,6 +44,7 @@ def get_text_of_old_revision(page:pywikibot.page.Page, rev_id:int):
     :return: A string of WikiText containing the text of a page after the revision
     """
     return page.getOldVersion(rev_id)
+
 
 def getRevisionMetadata(revision:pywikibot.page.Revision, key:str):
     """
